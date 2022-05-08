@@ -1,10 +1,9 @@
 import styles from './Routes.module.scss'
-import TodoList from './TodoList'
 
-function App() {
+const App = () => {
   return (
-    <div className={styles.app}>
-      <TodoList />
+    <div className={styles.app} >
+      Setting
     </div>
   )
 }
