@@ -1,0 +1,75 @@
+@use '/src/styles/constants/colors';
+
+.movieItem {
+  display: flex;
+  gap: 15px;
+  justify-content: space-between;
+  width: 300px;
+  padding: 20px 10px;
+  color: colors.$GRAYA;
+  transition: 0.2s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  img {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+  }
+
+  .exclamationCircleIcon {
+    width: 100px;
+    height: 100px;
+    border: 2px solid colors.$GRAYE;
+    border-radius: 10px;
+    fill: colors.$GRAYE;
+    stroke: colors.$GRAYE;
+  }
+
+  .movieIntroWrapper {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    width: 100px;
+
+    .introMain {
+      margin-bottom: 5px;
+      text-align: left;
+
+      .movieTitle {
+        margin-right: 5px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: colors.$GRAYE;
+      }
+
+      .movieYear {
+        font-size: small;
+      }
+    }
+
+    .introSub {
+      display: flex;
+      align-items: center;
+
+      .movieType {
+        margin-right: 10px;
+        color: colors.$GRAYA;
+      }
+
+      .bookmarkIcon {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        fill: none;
+        stroke: colors.$GRAYE;
+      }
+
+      .temp {
+        fill: colors.$GRAYE;
+      }
+    }
+  }
+}

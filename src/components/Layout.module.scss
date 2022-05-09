@@ -1,0 +1,33 @@
+@use '/src/styles/constants/colors';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+
+.layout {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 360px;
+  height: 720px;
+  padding: 40px 20px;
+  margin-top: 20px;
+  background-color: #3d3e49;
+  border-radius: 40px;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: colors.$GRAYE;
+  text-align: left;
+}
+
+.main {
+  height: 90%;
+  padding: 40px 0;
+}

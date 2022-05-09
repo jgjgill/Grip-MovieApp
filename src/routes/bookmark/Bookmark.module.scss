@@ -1,0 +1,29 @@
+@use '/src/styles/constants/colors';
+
+.bookmarkWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+
+  .title {
+    display: inline-block;
+    height: 30px;
+    margin-bottom: 40px;
+    font-size: large;
+    font-weight: 600;
+    color: colors.$GRAYE;
+    text-align: center;
+    border-bottom: 1px solid colors.$GRAYE;
+  }
+
+  ul {
+    height: 100%;
+    padding: 5px;
+    overflow-y: scroll;
+  }
+}
+
+.noBookmarkMovieText {
+  color: colors.$GRAYA;
+}

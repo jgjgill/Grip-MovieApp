@@ -1,0 +1,53 @@
+@use '/src/styles/mixins/position';
+@use '/src/styles/constants/colors';
+
+.bookmarkButtonWrapper {
+  @include position.middleBox;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+
+  .temp {
+    z-index: 50;
+    width: 100%;
+    height: 100%;
+    cursor: default;
+    border-radius: 40px;
+    opacity: 1;
+  }
+
+  .bookmarkModal {
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 300px;
+    height: 130px;
+    padding: 0 5px;
+    color: colors.$GRAYE;
+    text-align: left;
+    background-color: colors.$GRAY2;
+    border-radius: 10px;
+    transform: translateX(-50%);
+
+    span {
+      padding-left: 20px;
+    }
+
+    .buttonWrapper {
+      display: flex;
+      justify-content: space-around;
+      text-align: center;
+
+      button {
+        padding: 10px 20px;
+        color: colors.$GRAYE;
+        border-radius: 5px;
+      }
+    }
+  }
+}
