@@ -1,6 +1,6 @@
 import { useRecoilState } from 'recoil'
 import { bookmarkMovieList, bookmarkToggle } from 'recoils/atom'
-import styles from './BookmarkButton.module.scss'
+import styles from './BookmarkModal.module.scss'
 import store from 'storejs'
 
 interface BookmarkModalProps {
@@ -38,7 +38,7 @@ const BookmarkModal = ({ bookmarkText }: BookmarkModalProps) => {
 
   return (
     <div className={styles.bookmarkButtonWrapper}>
-      <button type='button' onClick={modalOutClick} className={styles.temp}>
+      <button type='button' onClick={modalOutClick} className={styles.modalClickButton}>
         <div />
       </button>
 

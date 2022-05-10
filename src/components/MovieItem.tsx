@@ -6,7 +6,11 @@ import { bookmarkToggle, bookmarkMovieList } from 'recoils/atom'
 import { BookmarkInon, ExclamationCircleIcon } from 'assets/svgs'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import cx from 'classnames'
-import { DraggableProvided, DraggableProvidedDraggableProps, DraggableProvidedDragHandleProps } from 'react-beautiful-dnd'
+import {
+  DraggableProvided,
+  DraggableProvidedDraggableProps,
+  DraggableProvidedDragHandleProps,
+} from 'react-beautiful-dnd'
 
 interface MovieItemProps {
   movieItem: ISearch
@@ -16,16 +20,27 @@ interface MovieItemProps {
 
 const MovieItem = ({ movieItem, innerRef, innerProvided }: MovieItemProps) => {
   const [bmToggle, setBmToggle] = useRecoilState(bookmarkToggle)
+  const bookmarkIdList = useRecoilValue(bookmarkMovieList).map((item) => item.imdbID)
+
   const [draggableProps, setDraggableProps] = useState<DraggableProvidedDraggableProps | null>(null)
   const [dragHandleProps, setDragHandleProps] = useState<DraggableProvidedDragHandleProps | undefined>(undefined)
-  const bookmarkIdList = useRecoilValue(bookmarkMovieList).map((item) => item.imdbID)
 
   const handleClick = () => {
     const bookmarIdList = store.get('bookmarkMovie').map((item: ISearch) => item.imdbID)
 
     bookmarIdList.includes(movieItem.imdbID)
-      ? setBmToggle({ ...bmToggle, toggle: !bmToggle.toggle, text: '즐겨찾기 제거', movieItem })
-      : setBmToggle({ ...bmToggle, toggle: !bmToggle.toggle, text: '즐겨찾기', movieItem })
+      ? setBmToggle({
+          ...bmToggle,
+          toggle: !bmToggle.toggle,
+          text: '즐겨찾기 제거',
+          movieItem,
+        })
+      : setBmToggle({
+          ...bmToggle,
+          toggle: !bmToggle.toggle,
+          text: '즐겨찾기',
+          movieItem,
+        })
   }
 
   const handleImgError = (e: SyntheticEvent<HTMLImageElement>) => {
@@ -52,7 +67,7 @@ const MovieItem = ({ movieItem, innerRef, innerProvided }: MovieItemProps) => {
           <div className={styles.introMain}>
             <span className={styles.movieTitle}>{movieItem.Title}</span>
             <time className={styles.movieYear} dateTime={movieItem.Year}>
-              ({movieItem.Year})
+              {`({movieItem.Year})`}
             </time>
           </div>
 

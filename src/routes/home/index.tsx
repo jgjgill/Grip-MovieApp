@@ -1,6 +1,6 @@
 import MovieItem from 'components/MovieItem'
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react'
-import { getMovieAPi } from 'services/movieApi'
+import { getMovieAPi, totalPageNumberFunc } from 'services/movieApi'
 import styles from './Home.module.scss'
 import store from 'storejs'
 import { useRecoilState, useRecoilValue } from 'recoil'
@@ -21,11 +21,12 @@ const Home = () => {
   const { ref: movieDataFetchRef, inView } = useInView()
 
   const nowPage = useRef(1)
-  const resetScrollRef = useRef<HTMLDivElement>(null)
+  const resetScrollRef = useRef<HTMLLIElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
   const handleSubmitSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
     if (searchInput !== changeInput) {
       nowPage.current = 1
     }
@@ -53,37 +54,34 @@ const Home = () => {
     }
   })
 
-  // 검색 결과 -> 리팩토링
   useEffect(() => {
     getMovieAPi({ s: searchInput, page: nowPage.current }).then((res) => {
       if (res.data.Response === 'False') {
         setSearchMovie([])
       }
+    })
+  }, [searchInput, setSearchMovie])
 
+  useEffect(() => {
+    getMovieAPi({ s: searchInput, page: nowPage.current }).then((res) => {
       if (res.data.Search) {
-        const pageNumber =
-          Number(res.data.totalResults) % 10
-            ? Number(res.data.totalResults) / 10 + 1
-            : Number(res.data.totalResults) / 10
+        const totalPageNumber = totalPageNumberFunc(res)
+        setMaxPage(totalPageNumber)
 
-        setMaxPage(pageNumber)
         resetScrollRef.current?.scrollIntoView()
         setSearchMovie(res.data.Search)
       }
     })
   }, [searchInput, setSearchMovie])
-  // 검색결과 -> 리팩토링
 
-  // 페이지네이션 -> 리팩토링
   useEffect(() => {
-    if (inView && nowPage.current < maxPage) {
+    if (searchMovie.length !== 0 && inView && nowPage.current < maxPage) {
       nowPage.current += 1
       getMovieAPi({ s: searchInput, page: nowPage.current }).then((res) => {
         setSearchMovie((prev) => prev.concat(res.data.Search))
       })
     }
-  }, [inView, maxPage, searchInput, setSearchMovie])
-  // 페이지네이션 -> 리팩토링
+  }, [inView, maxPage, searchInput, searchMovie, setSearchMovie])
 
   useUnmount(() => setSearchMovie([]))
 
@@ -96,20 +94,17 @@ const Home = () => {
         </button>
       </form>
 
+      {searchMovie.length === 0 && <span className={styles.noMovieText}>검색 결과가 없습니다.</span>}
+
       <ul>
-        {searchMovie.length === 0 ? (
-          <span className={styles.noMovieText}>검색 결과가 없습니다.</span>
-        ) : (
-          <div>
-            <div ref={resetScrollRef} />
-            {bmToggleValue.toggle && <BookmarkModal bookmarkText={bmToggleValue.text} />}
-            {searchMovie.map((movieItem) => (
-              <MovieItem key={movieItem.imdbID} movieItem={movieItem} />
-            ))}
-            <div ref={movieDataFetchRef} />
-          </div>
-        )}
+        <li ref={resetScrollRef} />
+        {searchMovie.map((movieItem) => (
+          <MovieItem key={movieItem.imdbID} movieItem={movieItem} />
+        ))}
+        <li ref={movieDataFetchRef} />
       </ul>
+
+      {bmToggleValue.toggle && <BookmarkModal bookmarkText={bmToggleValue.text} />}
     </div>
   )
 }
