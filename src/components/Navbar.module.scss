@@ -5,7 +5,9 @@
   justify-content: space-around;
   padding: 5px 0;
   color: colors.$GRAYE;
-  background-color: colors.$GRAY3;
+  background-color: colors.$GRAY6;
+  border-radius: 5px;
+  opacity: 0.5;
 
   li {
     width: 100%;
