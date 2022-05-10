@@ -4,15 +4,20 @@ import store from 'storejs'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { bookmarkToggle, bookmarkMovieList } from 'recoils/atom'
 import { BookmarkInon, ExclamationCircleIcon } from 'assets/svgs'
-import { SyntheticEvent } from 'react'
+import { SyntheticEvent, useEffect, useState } from 'react'
 import cx from 'classnames'
 
 interface MovieItemProps {
   movieItem: ISearch
+  innerRef?: any
+  innerProvided?: any
+  [key: string]: any
 }
 
-const MovieItem = ({ movieItem }: MovieItemProps) => {
+const MovieItem = ({ movieItem, innerRef, innerProvided }: MovieItemProps) => {
   const [bmToggle, setBmToggle] = useRecoilState(bookmarkToggle)
+  const [draggableProps, setDraggableProps] = useState(null)
+  const [dragHandleProps, setDragHandleProps] = useState(null)
   const bookmarkIdList = useRecoilValue(bookmarkMovieList).map((item) => item.imdbID)
 
   const handleClick = () => {
@@ -27,9 +32,16 @@ const MovieItem = ({ movieItem }: MovieItemProps) => {
     e.currentTarget.src = 'https://www.svgrepo.com/show/157825/error.svg'
   }
 
+  useEffect(() => {
+    if (innerProvided) {
+      setDraggableProps(innerProvided.draggableProps)
+      setDragHandleProps(innerProvided.dragHandleProps)
+    }
+  }, [innerProvided])
+
   return (
-    <li>
-      <button type='button' className={styles.movieItem} onClick={handleClick}>
+    <li ref={innerRef} {...draggableProps} {...dragHandleProps}>
+      <div role='button' tabIndex={0} className={styles.movieItem} onClick={handleClick}>
         {movieItem.Poster === 'N/A' ? (
           <ExclamationCircleIcon className={styles.exclamationCircleIcon} />
         ) : (
@@ -51,7 +63,7 @@ const MovieItem = ({ movieItem }: MovieItemProps) => {
             />
           </div>
         </div>
-      </button>
+      </div>
     </li>
   )
 }
