@@ -7,7 +7,7 @@ import Home from './home'
 const App = () => {
   return (
     <RecoilRoot>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Routes>
           <Route element={<Layout />}>
             <Route path='/' element={<Home />} />
