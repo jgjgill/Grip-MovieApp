@@ -6,18 +6,18 @@ import { bookmarkToggle, bookmarkMovieList } from 'recoils/atom'
 import { BookmarkInon, ExclamationCircleIcon } from 'assets/svgs'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import cx from 'classnames'
+import { DraggableProvided, DraggableProvidedDraggableProps, DraggableProvidedDragHandleProps } from 'react-beautiful-dnd'
 
 interface MovieItemProps {
   movieItem: ISearch
-  innerRef?: any
-  innerProvided?: any
-  [key: string]: any
+  innerProvided?: DraggableProvided
+  innerRef?: (element?: HTMLElement | null | undefined) => any
 }
 
 const MovieItem = ({ movieItem, innerRef, innerProvided }: MovieItemProps) => {
   const [bmToggle, setBmToggle] = useRecoilState(bookmarkToggle)
-  const [draggableProps, setDraggableProps] = useState(null)
-  const [dragHandleProps, setDragHandleProps] = useState(null)
+  const [draggableProps, setDraggableProps] = useState<DraggableProvidedDraggableProps | null>(null)
+  const [dragHandleProps, setDragHandleProps] = useState<DraggableProvidedDragHandleProps | undefined>(undefined)
   const bookmarkIdList = useRecoilValue(bookmarkMovieList).map((item) => item.imdbID)
 
   const handleClick = () => {
@@ -67,4 +67,5 @@ const MovieItem = ({ movieItem, innerRef, innerProvided }: MovieItemProps) => {
     </li>
   )
 }
+
 export default MovieItem
