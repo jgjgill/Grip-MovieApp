@@ -56,7 +56,7 @@ const Bookmark = () => {
               ) : (
                 <div>
                   {bmToggleValue.toggle && <BookmarkModal bookmarkText={bmToggleValue.text} />}
-                  {bmMovieList?.map((bookmarkItem, i) => (
+                  {bmMovieList.map((bookmarkItem, i) => (
                     <Draggable key={bookmarkItem.imdbID} draggableId={bookmarkItem.imdbID} index={i}>
                       {(innerProvided) => (
                         <MovieItem

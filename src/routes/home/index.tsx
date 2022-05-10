@@ -22,7 +22,7 @@ const Home = () => {
 
   const nowPage = useRef(1)
   const resetScrollRef = useRef<HTMLDivElement>(null)
-  const inputRef = useRef<any>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const handleSubmitSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -34,7 +34,10 @@ const Home = () => {
       resetScrollRef.current?.scrollIntoView()
     }
 
-    inputRef.current.placeholder = changeInput
+    if (inputRef.current !== null) {
+      inputRef.current.placeholder = changeInput
+    }
+
     setChangeInput('')
     setSearchInput(changeInput)
   }
@@ -45,7 +48,9 @@ const Home = () => {
 
   useMount(() => {
     store.get('bookmarkMovie') || store.set('bookmarkMovie', [])
-    inputRef.current.focus()
+    if (inputRef.current !== null) {
+      inputRef.current.focus()
+    }
   })
 
   // 검색 결과 -> 리팩토링
