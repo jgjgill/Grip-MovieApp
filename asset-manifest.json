@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/Grip-MovieApp/static/css/main.f18c15ef.css",
-    "main.js": "/Grip-MovieApp/static/js/main.97ecebb3.js",
+    "main.js": "/Grip-MovieApp/static/js/main.203cbece.js",
     "static/js/787.68ea1acb.chunk.js": "/Grip-MovieApp/static/js/787.68ea1acb.chunk.js",
     "index.html": "/Grip-MovieApp/index.html",
     "static/media/exclamationCircle.svg": "/Grip-MovieApp/static/media/exclamationCircle.a95d15b4dec11b26373f802a881410d6.svg",
     "static/media/search.svg": "/Grip-MovieApp/static/media/search.eecb80b433e4d5155a21bd5fd97f8497.svg",
     "static/media/bookmark.svg": "/Grip-MovieApp/static/media/bookmark.13ae7d14cf2efec5bf9f2b1e440a8d5a.svg",
     "main.f18c15ef.css.map": "/Grip-MovieApp/static/css/main.f18c15ef.css.map",
-    "main.97ecebb3.js.map": "/Grip-MovieApp/static/js/main.97ecebb3.js.map",
+    "main.203cbece.js.map": "/Grip-MovieApp/static/js/main.203cbece.js.map",
     "787.68ea1acb.chunk.js.map": "/Grip-MovieApp/static/js/787.68ea1acb.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f18c15ef.css",
-    "static/js/main.97ecebb3.js"
+    "static/js/main.203cbece.js"
   ]
 }
