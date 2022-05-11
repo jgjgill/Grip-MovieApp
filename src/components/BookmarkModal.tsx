@@ -43,7 +43,7 @@ const BookmarkModal = ({ bookmarkText }: BookmarkModalProps) => {
       </button>
 
       <div className={styles.bookmarkModal}>
-        <span>{bookmarkText}할까요?</span>
+        <span>{`${bookmarkText}할까요?`}</span>
 
         <div className={styles.buttonWrapper}>
           <button type='button' onClick={handleToggleClick}>

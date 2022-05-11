@@ -27,20 +27,14 @@ const MovieItem = ({ movieItem, innerRef, innerProvided }: MovieItemProps) => {
 
   const handleClick = () => {
     const bookmarIdList = store.get('bookmarkMovie').map((item: ISearch) => item.imdbID)
+    const text = bookmarIdList.includes(movieItem.imdbID) ? '즐겨찾기 제거' : '즐겨찾기'
 
-    bookmarIdList.includes(movieItem.imdbID)
-      ? setBmToggle({
-          ...bmToggle,
-          toggle: !bmToggle.toggle,
-          text: '즐겨찾기 제거',
-          movieItem,
-        })
-      : setBmToggle({
-          ...bmToggle,
-          toggle: !bmToggle.toggle,
-          text: '즐겨찾기',
-          movieItem,
-        })
+    setBmToggle({
+      ...bmToggle,
+      toggle: !bmToggle.toggle,
+      text,
+      movieItem,
+    })
   }
 
   const handleImgError = (e: SyntheticEvent<HTMLImageElement>) => {
@@ -67,14 +61,16 @@ const MovieItem = ({ movieItem, innerRef, innerProvided }: MovieItemProps) => {
           <div className={styles.introMain}>
             <span className={styles.movieTitle}>{movieItem.Title}</span>
             <time className={styles.movieYear} dateTime={movieItem.Year}>
-              {`({movieItem.Year})`}
+              {`(${movieItem.Year})`}
             </time>
           </div>
 
           <div className={styles.introSub}>
             <span className={styles.movieType}>{movieItem.Type}</span>
             <BookmarkInon
-              className={cx(styles.bookmarkIcon, { [styles.temp]: bookmarkIdList.includes(movieItem.imdbID) })}
+              className={cx(styles.bookmarkIcon, {
+                [styles.bookmarkToggleIcon]: bookmarkIdList.includes(movieItem.imdbID),
+              })}
             />
           </div>
         </div>

@@ -58,12 +58,15 @@ const Home = () => {
     getMovieAPi({ s: searchInput, page: nowPage.current }).then((res) => {
       if (res.data.Response === 'False') {
         setSearchMovie([])
+        setMaxPage(1)
       }
     })
   }, [searchInput, setSearchMovie])
 
   useEffect(() => {
-    getMovieAPi({ s: searchInput, page: nowPage.current }).then((res) => {
+    if (searchInput === '') return
+
+    getMovieAPi({ s: searchInput, page: 1 }).then((res) => {
       if (res.data.Search) {
         const totalPageNumber = totalPageNumberFunc(res)
         setMaxPage(totalPageNumber)
@@ -75,13 +78,22 @@ const Home = () => {
   }, [searchInput, setSearchMovie])
 
   useEffect(() => {
-    if (searchMovie.length !== 0 && inView && nowPage.current < maxPage) {
+    if (inView && maxPage > 1) {
       nowPage.current += 1
+    }
+  }, [inView, maxPage])
+
+  useEffect(() => {
+    if (searchInput === '') return
+
+    if (inView && nowPage.current < maxPage) {
       getMovieAPi({ s: searchInput, page: nowPage.current }).then((res) => {
-        setSearchMovie((prev) => prev.concat(res.data.Search))
+        if (res.data.Search) {
+          setSearchMovie((prev) => prev.concat(res.data.Search))
+        }
       })
     }
-  }, [inView, maxPage, searchInput, searchMovie, setSearchMovie])
+  }, [inView, maxPage, searchInput, setSearchMovie])
 
   useUnmount(() => setSearchMovie([]))
 
