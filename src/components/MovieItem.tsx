@@ -1,12 +1,17 @@
+import {
+  DraggableProvided,
+  DraggableProvidedDraggableProps,
+  DraggableProvidedDragHandleProps,
+} from 'react-beautiful-dnd'
+import { SyntheticEvent, useEffect, useState } from 'react'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import store from 'storejs'
+import cx from 'classnames'
+
+import { BookmarkInon, ExclamationCircleIcon } from 'assets/svgs'
+import { bookmarkToggle, bookmarkMovieList } from 'recoils/atom'
 import { ISearch } from 'types/movie'
 import styles from './MovieItem.module.scss'
-import store from 'storejs'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import { bookmarkToggle, bookmarkMovieList } from 'recoils/atom'
-import { BookmarkInon, ExclamationCircleIcon } from 'assets/svgs'
-import { SyntheticEvent, useEffect, useState } from 'react'
-import cx from 'classnames'
-import { DraggableProvided, DraggableProvidedDraggableProps, DraggableProvidedDragHandleProps } from 'react-beautiful-dnd'
 
 interface MovieItemProps {
   movieItem: ISearch
@@ -16,16 +21,21 @@ interface MovieItemProps {
 
 const MovieItem = ({ movieItem, innerRef, innerProvided }: MovieItemProps) => {
   const [bmToggle, setBmToggle] = useRecoilState(bookmarkToggle)
+  const bookmarkIdList = useRecoilValue(bookmarkMovieList).map((item) => item.imdbID)
+
   const [draggableProps, setDraggableProps] = useState<DraggableProvidedDraggableProps | null>(null)
   const [dragHandleProps, setDragHandleProps] = useState<DraggableProvidedDragHandleProps | undefined>(undefined)
-  const bookmarkIdList = useRecoilValue(bookmarkMovieList).map((item) => item.imdbID)
 
   const handleClick = () => {
     const bookmarIdList = store.get('bookmarkMovie').map((item: ISearch) => item.imdbID)
+    const text = bookmarIdList.includes(movieItem.imdbID) ? '즐겨찾기 제거' : '즐겨찾기'
 
-    bookmarIdList.includes(movieItem.imdbID)
-      ? setBmToggle({ ...bmToggle, toggle: !bmToggle.toggle, text: '즐겨찾기 제거', movieItem })
-      : setBmToggle({ ...bmToggle, toggle: !bmToggle.toggle, text: '즐겨찾기', movieItem })
+    setBmToggle({
+      ...bmToggle,
+      toggle: !bmToggle.toggle,
+      text,
+      movieItem,
+    })
   }
 
   const handleImgError = (e: SyntheticEvent<HTMLImageElement>) => {
@@ -52,14 +62,16 @@ const MovieItem = ({ movieItem, innerRef, innerProvided }: MovieItemProps) => {
           <div className={styles.introMain}>
             <span className={styles.movieTitle}>{movieItem.Title}</span>
             <time className={styles.movieYear} dateTime={movieItem.Year}>
-              ({movieItem.Year})
+              {`(${movieItem.Year})`}
             </time>
           </div>
 
           <div className={styles.introSub}>
             <span className={styles.movieType}>{movieItem.Type}</span>
             <BookmarkInon
-              className={cx(styles.bookmarkIcon, { [styles.temp]: bookmarkIdList.includes(movieItem.imdbID) })}
+              className={cx(styles.bookmarkIcon, {
+                [styles.bookmarkToggleIcon]: bookmarkIdList.includes(movieItem.imdbID),
+              })}
             />
           </div>
         </div>

@@ -1,6 +1,7 @@
-import styles from './Navbar.module.scss'
 import { Link } from 'react-router-dom'
+
 import { BookmarkInon, SearchIcon } from 'assets/svgs'
+import styles from './Navbar.module.scss'
 
 const Navbar = () => {
   return (

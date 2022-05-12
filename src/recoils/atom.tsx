@@ -1,6 +1,7 @@
 import { atom } from 'recoil'
-import { ISearch } from 'types/movie'
 import store from 'storejs'
+
+import { ISearch } from 'types/movie'
 
 export const searchMovieList = atom<ISearch[]>({
   key: '#searchMovieList',
@@ -19,4 +20,9 @@ export const bookmarkToggle = atom<{ toggle: boolean; text: string; movieItem?: 
     text: '',
     movieItem: null,
   },
+})
+
+export const movieLoading = atom<boolean>({
+  key: '#movieLoading',
+  default: false,
 })

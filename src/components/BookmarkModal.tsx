@@ -1,7 +1,8 @@
 import { useRecoilState } from 'recoil'
-import { bookmarkMovieList, bookmarkToggle } from 'recoils/atom'
-import styles from './BookmarkButton.module.scss'
 import store from 'storejs'
+
+import { bookmarkMovieList, bookmarkToggle } from 'recoils/atom'
+import styles from './BookmarkModal.module.scss'
 
 interface BookmarkModalProps {
   bookmarkText: string
@@ -38,12 +39,12 @@ const BookmarkModal = ({ bookmarkText }: BookmarkModalProps) => {
 
   return (
     <div className={styles.bookmarkButtonWrapper}>
-      <button type='button' onClick={modalOutClick} className={styles.temp}>
+      <button type='button' onClick={modalOutClick} className={styles.modalClickButton}>
         <div />
       </button>
 
       <div className={styles.bookmarkModal}>
-        <span>{bookmarkText}할까요?</span>
+        <span>{`${bookmarkText}할까요?`}</span>
 
         <div className={styles.buttonWrapper}>
           <button type='button' onClick={handleToggleClick}>

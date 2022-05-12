@@ -1,0 +1,53 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/position';
+
+.loadingWrapper {
+  @include position.middleBox;
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+}
+
+.loader {
+  position: relative;
+  width: 11em;
+  height: 11em;
+  margin: 300px auto;
+  font-size: 10px;
+  background: linear-gradient(to right, colors.$GRAYE 10%, rgba(226, 44, 44, 0%) 42%);
+  border-radius: 50%;
+  animation: load 1.4s infinite linear;
+}
+
+.loader::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '';
+  background: colors.$GRAYE;
+}
+
+.loader::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 75%;
+  height: 75%;
+  margin: auto;
+  content: '';
+  background: colors.$GRAY2;
+  border-radius: 50%;
+  opacity: 1;
+}
+
+@keyframes load {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
