@@ -1,6 +1,7 @@
 import { atom } from 'recoil'
-import { ISearch } from 'types/movie'
 import store from 'storejs'
+
+import { ISearch } from 'types/movie'
 
 export const searchMovieList = atom<ISearch[]>({
   key: '#searchMovieList',

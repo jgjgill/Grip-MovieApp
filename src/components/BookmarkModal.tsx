@@ -1,7 +1,8 @@
 import { useRecoilState } from 'recoil'
+import store from 'storejs'
+
 import { bookmarkMovieList, bookmarkToggle } from 'recoils/atom'
 import styles from './BookmarkModal.module.scss'
-import store from 'storejs'
 
 interface BookmarkModalProps {
   bookmarkText: string

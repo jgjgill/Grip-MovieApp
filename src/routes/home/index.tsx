@@ -1,15 +1,16 @@
-import MovieItem from 'components/MovieItem'
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react'
-import { getMovieAPi, totalPageNumberFunc } from 'services/movieApi'
-import styles from './Home.module.scss'
-import store from 'storejs'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { bookmarkToggle, movieLoading, searchMovieList } from 'recoils/atom'
 import { useInView } from 'react-intersection-observer'
+import store from 'storejs'
+
+import { bookmarkToggle, movieLoading, searchMovieList } from 'recoils/atom'
+import { getMovieAPi, totalPageNumberFunc } from 'services/movieApi'
 import { useMount, useUnmount } from 'react-use'
-import BookmarkModal from 'components/BookmarkModal'
 import { SearchIcon } from 'assets/svgs'
+import BookmarkModal from 'components/BookmarkModal'
+import MovieItem from 'components/MovieItem'
 import Loading from 'components/Loading'
+import styles from './Home.module.scss'
 
 const Home = () => {
   const [searchMovie, setSearchMovie] = useRecoilState(searchMovieList)

@@ -1,6 +1,7 @@
-import Layout from 'components/Layout'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { RecoilRoot } from 'recoil'
+
+import Layout from 'components/Layout'
 import Bookmark from './bookmark'
 import Home from './home'
 

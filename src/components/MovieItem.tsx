@@ -1,16 +1,17 @@
-import { ISearch } from 'types/movie'
-import styles from './MovieItem.module.scss'
-import store from 'storejs'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import { bookmarkToggle, bookmarkMovieList } from 'recoils/atom'
-import { BookmarkInon, ExclamationCircleIcon } from 'assets/svgs'
-import { SyntheticEvent, useEffect, useState } from 'react'
-import cx from 'classnames'
 import {
   DraggableProvided,
   DraggableProvidedDraggableProps,
   DraggableProvidedDragHandleProps,
 } from 'react-beautiful-dnd'
+import { SyntheticEvent, useEffect, useState } from 'react'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import store from 'storejs'
+import cx from 'classnames'
+
+import { BookmarkInon, ExclamationCircleIcon } from 'assets/svgs'
+import { bookmarkToggle, bookmarkMovieList } from 'recoils/atom'
+import { ISearch } from 'types/movie'
+import styles from './MovieItem.module.scss'
 
 interface MovieItemProps {
   movieItem: ISearch

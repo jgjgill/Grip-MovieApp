@@ -1,12 +1,13 @@
-import BookmarkModal from 'components/BookmarkModal'
-import MovieItem from 'components/MovieItem'
-import { useEffect } from 'react'
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd'
 import { useRecoilState, useRecoilValue } from 'recoil'
+import { useEffect } from 'react'
+import store from 'storejs'
+
 import { bookmarkMovieList, bookmarkToggle } from 'recoils/atom'
 import { ISearch } from 'types/movie'
+import BookmarkModal from 'components/BookmarkModal'
+import MovieItem from 'components/MovieItem'
 import styles from './Bookmark.module.scss'
-import store from 'storejs'
 
 const reorder = (list: ISearch[], startIndex: number, endIndex: number): ISearch[] => {
   const result = Array.from(list)
