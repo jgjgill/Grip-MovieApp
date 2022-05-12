@@ -4,14 +4,16 @@ import { getMovieAPi, totalPageNumberFunc } from 'services/movieApi'
 import styles from './Home.module.scss'
 import store from 'storejs'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { bookmarkToggle, searchMovieList } from 'recoils/atom'
+import { bookmarkToggle, movieLoading, searchMovieList } from 'recoils/atom'
 import { useInView } from 'react-intersection-observer'
 import { useMount, useUnmount } from 'react-use'
 import BookmarkModal from 'components/BookmarkModal'
 import { SearchIcon } from 'assets/svgs'
+import Loading from 'components/Loading'
 
 const Home = () => {
   const [searchMovie, setSearchMovie] = useRecoilState(searchMovieList)
+  const [movieApiLoading, setMovieApiLoading] = useRecoilState(movieLoading)
   const bmToggleValue = useRecoilValue(bookmarkToggle)
 
   const [changeInput, setChangeInput] = useState<string>('')
@@ -55,27 +57,37 @@ const Home = () => {
   })
 
   useEffect(() => {
-    getMovieAPi({ s: searchInput, page: nowPage.current }).then((res) => {
-      if (res.data.Response === 'False') {
+    if (searchInput === '') return
+
+    getMovieAPi({ s: searchInput, page: nowPage.current })
+      .then((res) => {
+        if (res.data.Response === 'False') {
+          setSearchMovie([])
+          setMaxPage(1)
+        }
+      })
+      .catch(() => {
         setSearchMovie([])
         setMaxPage(1)
-      }
-    })
+      })
   }, [searchInput, setSearchMovie])
 
   useEffect(() => {
     if (searchInput === '') return
+    setMovieApiLoading(true)
 
-    getMovieAPi({ s: searchInput, page: 1 }).then((res) => {
-      if (res.data.Search) {
-        const totalPageNumber = totalPageNumberFunc(res)
-        setMaxPage(totalPageNumber)
+    getMovieAPi({ s: searchInput, page: 1 })
+      .then((res) => {
+        if (res.data.Search) {
+          const totalPageNumber = totalPageNumberFunc(res)
+          setMaxPage(totalPageNumber)
 
-        resetScrollRef.current?.scrollIntoView()
-        setSearchMovie(res.data.Search)
-      }
-    })
-  }, [searchInput, setSearchMovie])
+          resetScrollRef.current?.scrollIntoView()
+          setSearchMovie(res.data.Search)
+        }
+      })
+      .finally(() => setMovieApiLoading(false))
+  }, [searchInput, setSearchMovie, setMovieApiLoading])
 
   useEffect(() => {
     if (inView && maxPage > 1) {
@@ -94,6 +106,14 @@ const Home = () => {
       })
     }
   }, [inView, maxPage, searchInput, setSearchMovie])
+
+  useEffect(() => {
+    if (searchMovie.length > 10 && inView) {
+      setMovieApiLoading(true)
+    } else {
+      setMovieApiLoading(false)
+    }
+  }, [inView, searchMovie, setMovieApiLoading])
 
   useUnmount(() => setSearchMovie([]))
 
@@ -116,6 +136,7 @@ const Home = () => {
         <li ref={movieDataFetchRef} />
       </ul>
 
+      {movieApiLoading && <Loading />}
       {bmToggleValue.toggle && <BookmarkModal bookmarkText={bmToggleValue.text} />}
     </div>
   )

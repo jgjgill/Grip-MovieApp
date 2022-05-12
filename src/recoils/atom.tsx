@@ -20,3 +20,8 @@ export const bookmarkToggle = atom<{ toggle: boolean; text: string; movieItem?: 
     movieItem: null,
   },
 })
+
+export const movieLoading = atom<boolean>({
+  key: '#movieLoading',
+  default: false,
+})
