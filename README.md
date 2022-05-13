@@ -17,7 +17,7 @@ wanted_pre_onboarding에서 진행한 기업 과제로 그립컴퍼니 개발 �
 
 |메인 페이지|즐겨찾기 페이지|
 |:---:|:---:|
-|![home](https://user-images.githubusercontent.com/79239852/168244280-92b94093-3e67-4a55-b90a-629e7a3338a4.gif)|![bookmark](https://user-images.githubusercontent.com/79239852/168244322-cd3e83f3-540d-4299-b91b-512a703a773d.gif)|
+|![home](https://user-images.githubusercontent.com/79239852/168244280-92b94093-3e67-4a55-b90a-629e7a3338a4.gif)|![bookmark](https://user-images.githubusercontent.com/79239852/168246211-804d9c92-a461-4f62-8e07-6de17fa6ba8d.gif)|
 
 # 🔧사용 라이브러리
 
