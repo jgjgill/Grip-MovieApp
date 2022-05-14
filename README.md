@@ -45,4 +45,4 @@ wanted_pre_onboarding에서 진행한 기업 과제로 그립컴퍼니 개발 �
 # 🚀배포
 Github pages 배포
 
-[jgjgill.github.io/grip-movieapp/](jgjgill.github.io/grip-movieapp/)
+[jgjgill.github.io/grip-movieapp/](https://jgjgill.github.io/Grip-MovieApp/)
