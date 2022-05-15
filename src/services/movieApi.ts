@@ -2,7 +2,7 @@ import { axios } from 'hooks/worker'
 import { ISearch } from 'types/movie'
 import { AxiosResponse } from 'axios'
 
-const url = `http://www.omdbapi.com/?apikey=92e32667`
+const url = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_MOVIE_KEY}`
 
 interface Params {
   s: string
